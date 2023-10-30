@@ -1,24 +1,16 @@
 class TimersDashboard extends React.Component {
     
     state = {
-        timers: [
-            {
-                title: 'Learn React',
-                project: 'Web Development',
-                id: uuid.v4(),
-                elapsed: 8986300,
-                runningSince: Date.now()
-            },
-            {
-                title: 'Water Plants',
-                project: 'Chores',
-                id: uuid.v4(),
-                elapsed: 4548900,
-                runningSince: null
-            }   
-        ]
-    
+        timers: []
     };
+
+    componentDidMount() {
+        this.loadTimersFromServer();
+    }
+
+    loadTimersFromServer = () => {
+        client.getTimers((serverTimers) => this.setState({timers: serverTimers}));
+    }
 
     handleCreateFormSubmit = (timer) => {
         this.createTimer(timer);
@@ -26,9 +18,13 @@ class TimersDashboard extends React.Component {
 
     createTimer = (timer) => {
         const t = helpers.newTimer(timer);
+        
         this.setState({
             timers: this.state.timers.concat(t)
-        })
+        });
+
+        client.createTimer(t);
+
     }
     
     handleEditFormSubmit = (timer) => {
@@ -47,13 +43,16 @@ class TimersDashboard extends React.Component {
                     return timer;
                 }
             })
-        })
+        });
+
+        client.updateTimer(timerAttrs);
     }
 
     handleDeleteTimer = (id) => {
         this.setState({
             timers: this.state.timers.filter(timer => timer.id !== id)
         });
+        client.deleteTimer({id: id});
     }
 
     handleStartTimer = (id) => {
@@ -77,6 +76,7 @@ class TimersDashboard extends React.Component {
                 }
             })
         });
+        client.startTimer({id: id, start: now});
     }
 
     stopTimer = (id) => {
@@ -94,6 +94,7 @@ class TimersDashboard extends React.Component {
                 }
             })
         });
+        client.stopTimer({id: id, stop: now});
     }
 
     render() {

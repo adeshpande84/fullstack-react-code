@@ -2,8 +2,9 @@
     {
         "title": "Clear paper jam",
         "project": "Office Chores",
-        "elapsed": 1273998,
-        "id": "a73c1d19-f32d-4aff-b470-cea4e792406a"
+        "elapsed": 1279413,
+        "id": "a73c1d19-f32d-4aff-b470-cea4e792406a",
+        "runningSince": null
     },
     {
         "title": "Ponder origins of universe",
@@ -16,7 +17,7 @@
         "title": "New timer",
         "project": "Test",
         "id": "e5421bd6-fdf5-4adc-861e-b2d99d5b141a",
-        "elapsed": 19617,
+        "elapsed": 30433,
         "runningSince": null
     }
 ]
